@@ -37,18 +37,13 @@ class EdittingTableviewViewController: UIViewController {
                 return TableViewEdittingCommand.AppendItem(item: item, section: randSection)
             }
         
-        let moveCommand = tableView.rx_itemMoved
-            .map { (sourceIndex, destinationIndex) -> TableViewEdittingCommand in
-                return TableViewEdittingCommand.MoveItem(sourceIndex: sourceIndex, destinationIndexPath: destinationIndex)
-            }
-        
         let deleteCommand = tableView.rx_itemDeleted
             .map { indexPath -> TableViewEdittingCommand in
                 return TableViewEdittingCommand.DeleteItem(indexPath)
             }
         
         Observable
-            .of(addCommand, moveCommand, deleteCommand)
+            .of(addCommand, deleteCommand)
             .merge()
             .scan(initialState) { return $0.executeCommand($1) }
             .startWith(initialState)
@@ -84,16 +79,11 @@ class EdittingTableviewViewController: UIViewController {
         dataSource.canEditRowAtIndexPath = { _ in
             return true
         }
-        
-        dataSource.canMoveRowAtIndexPath = { _ in
-            return false
-        }
     }
 }
 
 enum TableViewEdittingCommand {
     case AppendItem(item: IntItem, section: Int)
-    case MoveItem(sourceIndex: NSIndexPath, destinationIndexPath: NSIndexPath)
     case DeleteItem(NSIndexPath)
 }
 
@@ -117,27 +107,6 @@ struct SectionedTableViewState {
             items.removeAtIndex(indexPath.row)
             sections[indexPath.section] = NumberSection(original: sections[indexPath.section], items: items)
             return SectionedTableViewState(sections: sections)
-        case .MoveItem(let moveEvent):
-            var sections = self.sections
-            var sourceItems = sections[moveEvent.sourceIndex.section].items
-            var destItems = sections[moveEvent.destinationIndexPath.section].items
-            
-            if moveEvent.sourceIndex.section == moveEvent.destinationIndexPath.section {
-                destItems.insert(destItems.removeAtIndex(moveEvent.sourceIndex.row), atIndex: moveEvent.destinationIndexPath.row)
-                let destinationSection = NumberSection(original: sections[moveEvent.destinationIndexPath.section], items: destItems)
-                sections[moveEvent.sourceIndex.section] = destinationSection
-                return SectionedTableViewState(sections: sections)
-            } else {
-                let item = sourceItems.removeAtIndex(moveEvent.sourceIndex.row)
-                destItems.insert(item, atIndex: moveEvent.destinationIndexPath.row)
-                let sourceSection = NumberSection(original: sections[moveEvent.sourceIndex.section], items: sourceItems)
-                let destSection = NumberSection(original: sections[moveEvent.destinationIndexPath.section], items: destItems)
-                
-                sections[moveEvent.sourceIndex.section] = sourceSection
-                sections[moveEvent.destinationIndexPath.section] = destSection
-                
-                return SectionedTableViewState(sections: sections)
-            }
         }
     }
 }
