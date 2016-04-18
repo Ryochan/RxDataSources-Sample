@@ -1,0 +1,2 @@
+github "ReactiveX/RxSwift" "2.4"
+github "RxSwiftCommunity/RxDataSources" "0.6.2"
