@@ -22,6 +22,11 @@ struct SectionedTableViewState {
             let items = sections[appendEvent.section].items + appendEvent.item
             sections[appendEvent.section] = NumberSection(original: sections[appendEvent.section], items: items)
             return SectionedTableViewState(sections: sections)
+        case .AppendItems(let appendEvent):
+            var sections = self.sections
+            let items = sections[appendEvent.section].items + appendEvent.items
+            sections[appendEvent.section] = NumberSection(original: sections[appendEvent.section], items: items)
+            return SectionedTableViewState(sections: sections)
         case .DeleteItem(let indexPath):
             var sections = self.sections
             var items = sections[indexPath.section].items
@@ -34,6 +39,7 @@ struct SectionedTableViewState {
 
 enum TableViewEdittingCommand {
     case AppendItem(item: IntItem, section: Int)
+    case AppendItems(items: [IntItem], section: Int)
     case DeleteItem(NSIndexPath)
 }
 
