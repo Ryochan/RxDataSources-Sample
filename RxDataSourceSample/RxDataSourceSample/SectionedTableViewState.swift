@@ -6,9 +6,7 @@
 //  Copyright © 2016 Ryo. All rights reserved.
 //
 
-import RxDataSources
-import RxSwift
-import RxCocoa
+import Foundation
 
 struct SectionedTableViewState {
     var sections: [NumberSection]

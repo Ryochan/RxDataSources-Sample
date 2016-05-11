@@ -29,7 +29,8 @@ class EdittingTableviewViewController: UIViewController {
         let initialState = SectionedTableViewState(sections: sections)
         let addCommand = addButton.rx_tap.asDriver()
             .map { _ -> TableViewEdittingCommand in
-                let item = IntItem(number: 1, date: NSDate())
+                let number = arc4random_uniform(UInt32(Int(100)))
+                let item = IntItem(number: Int(number), date: NSDate())
                 return TableViewEdittingCommand.AppendItem(item: item, section: 0)
             }
         
