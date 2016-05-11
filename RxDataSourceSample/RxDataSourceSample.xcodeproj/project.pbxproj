@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9836CA21CE313B000F6CD85 /* SectionedTableViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9836CA11CE313B000F6CD85 /* SectionedTableViewState.swift */; };
 		E9F5D23F1CC47AC4009C21DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5D23E1CC47AC4009C21DA /* AppDelegate.swift */; };
 		E9F5D2411CC47AC4009C21DA /* EdittingTableviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F5D2401CC47AC4009C21DA /* EdittingTableviewViewController.swift */; };
 		E9F5D2441CC47AC4009C21DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F5D2421CC47AC4009C21DA /* Main.storyboard */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E9836CA11CE313B000F6CD85 /* SectionedTableViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionedTableViewState.swift; sourceTree = "<group>"; };
 		E9F5D23B1CC47AC4009C21DA /* RxDataSourceSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxDataSourceSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F5D23E1CC47AC4009C21DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F5D2401CC47AC4009C21DA /* EdittingTableviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdittingTableviewViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				E9F5D23E1CC47AC4009C21DA /* AppDelegate.swift */,
 				E9F5D2401CC47AC4009C21DA /* EdittingTableviewViewController.swift */,
+				E9836CA11CE313B000F6CD85 /* SectionedTableViewState.swift */,
 				E9F5D2771CC47E96009C21DA /* NumberSection.swift */,
 				E9F5D2421CC47AC4009C21DA /* Main.storyboard */,
 				E9F5D2451CC47AC4009C21DA /* Assets.xcassets */,
@@ -301,6 +304,7 @@
 			files = (
 				E9F5D2411CC47AC4009C21DA /* EdittingTableviewViewController.swift in Sources */,
 				E9F5D2781CC47E96009C21DA /* NumberSection.swift in Sources */,
+				E9836CA21CE313B000F6CD85 /* SectionedTableViewState.swift in Sources */,
 				E9F5D23F1CC47AC4009C21DA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,6 +540,7 @@
 				E9F5D2651CC47AC4009C21DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9F5D2661CC47AC4009C21DA /* Build configuration list for PBXNativeTarget "RxDataSourceSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +549,7 @@
 				E9F5D2681CC47AC4009C21DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9F5D2691CC47AC4009C21DA /* Build configuration list for PBXNativeTarget "RxDataSourceSampleUITests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +558,7 @@
 				E9F5D26B1CC47AC4009C21DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
