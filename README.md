@@ -1,6 +1,6 @@
 # RxDataSources-Sample
 ##導入方法
-### TableViewのSectionをstructで定義する
+### TableViewのSectionを定義する
 ```swift
 struct NumberSection {
     var header: String
@@ -11,48 +11,6 @@ struct NumberSection {
         self.header = header
         self.numbers = numbers
         self.updated = updated
-    }
-}
-```
-
-### 作成したSection structに`AnimatableSectionModelType`を継承
-以下の２点を定義する必要がある。
-```swift
-associatedtype Item : IdentifiableType, Equatable
-public init(original: Self, items: [Self.Item])
-```
-↓
-```swift
-extension NumberSection: AnimatableSectionModelType {
-    typealias Item = IntItem
-    
-    var identity: String {
-        return header
-    }
-    
-    var items: [IntItem] {
-        return numbers
-    }
-    
-    init(original: NumberSection, items: [Item]) {
-        self = original
-        self.numbers = items
-    }
-}
-```
-
-### Sectionに持たせるアイテム(この場合はIntItem)に`IdentifiableType, Equatable`を継承
-```swift
-struct IntItem {
-    let number: Int
-    let date: NSDate
-}
-
-extension IntItem: IdentifiableType, Equatable {
-    typealias Identity = Int
-    
-    var identity: Int {
-        return number
     }
 }
 ```
@@ -70,7 +28,7 @@ enum TableViewEdittingCommand {
 }
 ```
 
-###　SectionedTableViewStateを作成
+###　SectionedTableViewStateを定義
 これを使ってアクション(Add, Delete)などを管理する。
 `executeCommand(...)`の中で'command'に応じて新しい`SectionedTableViewState`を返す。
 ```swift
@@ -85,7 +43,7 @@ struct SectionedTableViewState {
       ...
     }
 ```
-## SectionedTableViewStateのInitialを定義する
+## SectionedTableViewStateのInitialを定義する(例)
 ```swift 
 let sections: [NumberSection] = [
             NumberSection(header: "Section 1", numbers: [], updated: NSDate()),
@@ -96,7 +54,7 @@ let sections: [NumberSection] = [
 let initialState = SectionedTableViewState(sections: sections)
 ```
 
-## Commandを定義すして`rx_itemsAnimatedWithDataSource`にバインド
+## Commandを見て、新しいsectionを`tableView`にバインド
 ```swift 
 let addCommand = addButton.rx_tap
     .scan(0) { x, _ in x+1 }
@@ -129,9 +87,7 @@ private func skinTableViewDataSource(dataSource: RxTableViewSectionedAnimatedDat
         
         dataSource.configureCell = { (dataSource, tableView, indexPath, item) in
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-            
-            cell.textLabel?.text = "\(item)"
-            
+            ...
             return cell
         }
         
