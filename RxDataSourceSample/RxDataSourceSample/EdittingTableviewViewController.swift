@@ -72,12 +72,12 @@ class EdittingTableviewViewController: UIViewController {
             .drive(tableView.rx_itemsAnimatedWithDataSource(dataSource))
             .addDisposableTo(disposeBag)
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .Top, reloadAnimation: .None, deleteAnimation: .Left)
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .None, reloadAnimation: .None, deleteAnimation: .Left)
         
         dataSource.configureCell = { (dataSource, tableView, indexPath, item) in
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! EdittingTableViewCell
             
-            cell.textLabel?.text = "\(item.name)"
+            cell.item = item
             
             return cell
         }
