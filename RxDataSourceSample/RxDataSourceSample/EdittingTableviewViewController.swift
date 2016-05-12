@@ -30,7 +30,7 @@ class EdittingTableviewViewController: UIViewController {
         let dataSource = RxTableViewSectionedAnimatedDataSource<NumberSection>()
         
         let sections: [NumberSection] = [
-            NumberSection(header: "Section 1", numbers: [], updated: NSDate()),
+            NumberSection(header: "Section 1", numbers: [IntItem(number: 200, date: NSDate()), IntItem(number: 201, date: NSDate()), IntItem(number: 202, date: NSDate())], updated: NSDate())
             ]
         
         let initialState = SectionedTableViewState(sections: sections)
@@ -48,7 +48,21 @@ class EdittingTableviewViewController: UIViewController {
         
         let addItemsCommand = addItemsButton.rx_tap.asDriver()
             .map { _ -> TableViewEdittingCommand in
-                let items = [IntItem(number: 150, date: NSDate()), IntItem(number: 151, date: NSDate()), IntItem(number: 152, date: NSDate())]
+                let items = [
+                    IntItem(number: 150, date: NSDate()),
+                    IntItem(number: 151, date: NSDate()),
+                    IntItem(number: 152, date: NSDate()),
+                    IntItem(number: 153, date: NSDate()),
+                    IntItem(number: 154, date: NSDate()),
+                    IntItem(number: 155, date: NSDate()),
+                    IntItem(number: 156, date: NSDate()),
+                    IntItem(number: 157, date: NSDate()),
+                    IntItem(number: 158, date: NSDate()),
+                    IntItem(number: 159, date: NSDate()),
+                    IntItem(number: 160, date: NSDate()),
+                    IntItem(number: 161, date: NSDate())
+                ]
+                
                 return TableViewEdittingCommand.AppendItems(items: items, section: 0)
             }
         
@@ -58,12 +72,12 @@ class EdittingTableviewViewController: UIViewController {
             .scan(initialState) { return $0.executeCommand($1) }
             .startWith(initialState)
             .map { $0.sections }
-        
+            
         updatedState
             .drive(tableView.rx_itemsAnimatedWithDataSource(dataSource))
             .addDisposableTo(disposeBag)
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .Top, reloadAnimation: .Fade, deleteAnimation: .Left)
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .None, reloadAnimation: .None, deleteAnimation: .Left)
         
         dataSource.configureCell = { (dataSource, tableView, indexPath, item) in
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
