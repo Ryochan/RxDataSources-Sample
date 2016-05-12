@@ -30,14 +30,14 @@ class EdittingTableviewViewController: UIViewController {
         let dataSource = RxTableViewSectionedAnimatedDataSource<NumberSection>()
         
         let sections: [NumberSection] = [
-            NumberSection(header: "Section 1", numbers: [IntItem(number: 200, date: NSDate()), IntItem(number: 201, date: NSDate()), IntItem(number: 202, date: NSDate())], updated: NSDate())
+            NumberSection(header: "Section 1", apps: [], id: 1)
             ]
         
         let initialState = SectionedTableViewState(sections: sections)
         let addCommand = addButton.rx_tap.asDriver()
             .map { _ -> TableViewEdittingCommand in
                 let number = arc4random_uniform(UInt32(Int(100)))
-                let item = IntItem(number: Int(number), date: NSDate())
+                let item = App(id: Int(number), name: "Atte")
                 return TableViewEdittingCommand.AppendItem(item: item, section: 0)
         }
         
@@ -49,18 +49,13 @@ class EdittingTableviewViewController: UIViewController {
         let addItemsCommand = addItemsButton.rx_tap.asDriver()
             .map { _ -> TableViewEdittingCommand in
                 let items = [
-                    IntItem(number: 150, date: NSDate()),
-                    IntItem(number: 151, date: NSDate()),
-                    IntItem(number: 152, date: NSDate()),
-                    IntItem(number: 153, date: NSDate()),
-                    IntItem(number: 154, date: NSDate()),
-                    IntItem(number: 155, date: NSDate()),
-                    IntItem(number: 156, date: NSDate()),
-                    IntItem(number: 157, date: NSDate()),
-                    IntItem(number: 158, date: NSDate()),
-                    IntItem(number: 159, date: NSDate()),
-                    IntItem(number: 160, date: NSDate()),
-                    IntItem(number: 161, date: NSDate())
+                    App(id: 1, name: "Apple"),
+                    App(id: 2, name: "Mercari"),
+                    App(id: 3, name: "instagram"),
+                    App(id: 4, name: "Facebook"),
+                    App(id: 5, name: "Twitter"),
+                    App(id: 6, name: "LINE"),
+                    App(id: 7, name: "Google Map"),
                 ]
                 
                 return TableViewEdittingCommand.AppendItems(items: items, section: 0)
@@ -77,12 +72,12 @@ class EdittingTableviewViewController: UIViewController {
             .drive(tableView.rx_itemsAnimatedWithDataSource(dataSource))
             .addDisposableTo(disposeBag)
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .None, reloadAnimation: .None, deleteAnimation: .Left)
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .Top, reloadAnimation: .None, deleteAnimation: .Left)
         
         dataSource.configureCell = { (dataSource, tableView, indexPath, item) in
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
             
-            cell.textLabel?.text = "\(item)"
+            cell.textLabel?.text = "\(item.name)"
             
             return cell
         }

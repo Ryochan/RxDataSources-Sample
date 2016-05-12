@@ -38,8 +38,8 @@ struct SectionedTableViewState {
 }
 
 enum TableViewEdittingCommand {
-    case AppendItem(item: IntItem, section: Int)
-    case AppendItems(items: [IntItem], section: Int)
+    case AppendItem(item: App, section: Int)
+    case AppendItems(items: [App], section: Int)
     case DeleteItem(NSIndexPath)
 }
 

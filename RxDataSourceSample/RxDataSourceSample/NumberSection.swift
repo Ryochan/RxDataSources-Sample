@@ -11,48 +11,48 @@ import RxDataSources
 
 struct NumberSection {
     var header: String
-    var numbers: [IntItem]
-    var updated: NSDate
+    var apps: [App]
+    var id: Int
     
-    init(header: String, numbers: [IntItem], updated: NSDate) {
+    init(header: String, apps: [App], id: Int) {
         self.header = header
-        self.numbers = numbers
-        self.updated = updated
+        self.apps = apps
+        self.id = id
     }
 }
 
-struct IntItem {
-    let number: Int
-    let date: NSDate
+struct App {
+    let id: Int
+    let name: String
 }
 
 extension NumberSection: AnimatableSectionModelType {
-    typealias Item = IntItem
+    typealias Item = App
     typealias Identity = String
     
-    var identity: String {
+    var identity: Identity {
         return header
     }
     
-    var items: [IntItem] {
-        return numbers
+    var items: [Item] {
+        return apps
     }
     
     init(original: NumberSection, items: [Item]) {
         self = original
-        self.numbers = items
+        self.apps = items
     }
 }
 
-extension IntItem: IdentifiableType, Equatable {
+extension App: IdentifiableType, Equatable {
     typealias Identity = Int
     
     var identity: Int {
-        return number
+        return id
     }
 }
 
 // equatable, this is needed to detect changes
-func == (lhs: IntItem, rhs: IntItem) -> Bool {
-    return lhs.number == rhs.number && lhs.date.isEqualToDate(rhs.date)
+func == (lhs: App, rhs: App) -> Bool {
+    return lhs.id == rhs.id
 }
